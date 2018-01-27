@@ -1,0 +1,85 @@
+
+
+<form [formGroup]="loginForm" (ngSubmit)="saveTask(task,currentStatus)">
+	<div style="text-align:center">
+		  <h1>
+			Welcome to ToDos Application
+		  </h1>
+		  
+	</div>
+		<hr>  
+	
+	
+		  <table border="1" align="center">
+				<thead></thead>
+				<tbody>
+				<tr>
+				<td><label style="text-align:left">Task :</label></td>
+				<td><input formControlName="name" 
+							  type="text" 
+							  [(ngModel)]="task.name"
+							  required
+							  placeholder="Enter task here!"></td>
+				</tr>
+				
+
+				<tr>
+				<td><label style="text-align:left">Description :</label></td>
+				<td><input formControlName="description"
+					       type="text" 
+						   [(ngModel)]="task.description"
+						   required><br>
+				
+				</tr>
+				
+				<tr>
+				<td><label style="text-align:left">Status :</label></td>
+				<td>
+					<select [(ngModel)]="currentStatus" formControlName="status">
+					<option *ngFor="let status of taskStatus" 
+					[ngValue]="status" [selected]="currentStatus == status">{{status}}</option>
+					</select>
+				<br>
+				</td>
+				</tr>
+				<tr><td></td>
+					<td style="text-align:left">
+						<button type="submit" [disabled]="!loginForm.valid">Add Task</button></td>
+				</tr>
+				
+				</tbody>
+
+		 </table>
+	
+	<div style="text-align:left">
+		  <h4>
+			ToDos List
+		  </h4>
+		  <h6 style="text-align:center" [ngClass]="{'two': true}">In Progress</h6>
+		  <h6 style="text-align:center" [ngClass]="{'one': true}">created </h6>
+		  <h6 style="text-align:center" [ngClass]="{'three': true}">Completed</h6>
+	</div>		
+  
+	<div class="col-md-6" style="text-align:center">
+		<table class="table table-striped">
+			<thead>
+			<tr>
+				<th style="text-align:center"><label>Name</label></th>
+				<th style="text-align:center"><label>Description</label></th>
+			</tr>
+			</thead>
+
+			<tbody>
+			<tr *ngFor='let task of taskslist; trackBy: index;' [ngClass]="{'one': task.status == 1, 'two':task.status == 2,'three':task.status == 3}">
+				<td>{{task.name}}</td>
+				<td>{{task.description}}</td>
+				<td><button class="btn btn-success"(click)=editTask(task)>Edit</button></td>
+				<td><button class="btn btn-danger"(click)=deleteTask(task)>Delete</button></td>
+			</tr>
+
+			</tbody>
+
+		</table>
+	</div>
+  
+</form>
