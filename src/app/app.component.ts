@@ -40,14 +40,28 @@ export class AppComponent implements OnInit{
 		if (this.loginForm.valid) {
 			
 			if(currentStatus == 'Completed'){
-				task.status = 3;
-				this.todoDataService.updateTask(task);
+				
+				if(typeof task.status == "undefined") {
+					task.status = 3;
+					this.todoDataService.saveTask(task);
+				}else{
+					task.status = 3;
+					this.todoDataService.updateTask(task);
+				}
+				
 			}else if(currentStatus == 'Created'){
 				task.status = 1;
 				this.todoDataService.saveTask(task);
 			}else{
-				task.status = 2;
-				this.todoDataService.updateTask(task);
+				
+				if(typeof task.status == "undefined") {
+					task.status = 2;
+					this.todoDataService.saveTask(task);
+				}else{
+					task.status = 2;
+					this.todoDataService.updateTask(task);
+				}
+				
 			}
 			
 			
